@@ -1,8 +1,8 @@
 import dotenv from  'dotenv';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiPlus } from 'react-icons/fi';
-import { Map, TileLayer, Marker } from 'react-leaflet';
+import { FiPlus, FiArrowRight } from 'react-icons/fi';
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import Leaflet from 'leaflet';
 
 import 'leaflet/dist/leaflet.css'
@@ -14,7 +14,8 @@ import '../styles/pages/orphanages-map.css';
 const mapIcon = Leaflet.icon({
     iconUrl: mapMarkerImg,
     iconSize:[58, 50],
-    iconAnchor: [29,50]
+    iconAnchor: [29,50],
+    popupAnchor: [170, 2]
 })
 
 function OrphanagesMap() {
@@ -47,7 +48,14 @@ function OrphanagesMap() {
                 <Marker
                     icon={mapIcon}
                     position={[-23.5247764, -46.2023049]}
-                />
+                >
+                    <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup">
+                        Orphanage name
+                        <Link to="">
+                            <FiArrowRight size={20} color="#FFF" />
+                        </Link>
+                    </Popup>
+                </Marker>
             </Map>
 
             <Link to="/" className="create-orphanage">
