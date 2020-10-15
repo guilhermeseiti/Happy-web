@@ -10,10 +10,10 @@ import mapIcon from "../utils/mapIcon";
 import '../styles/pages/create-orphanage.css';
 
 export default function CreateOrphanage() {
-  const [position, setPosition] = useState({latitude: 0, longitude: 0})
+  const [position, setPosition] = useState({ latitude: 0, longitude: 0 })
 
   function handleMapClick(event: LeafletMouseEvent) {
-    const {lat, lng} = event.latlng;
+    const { lat, lng } = event.latlng;
 
     setPosition({
       latitude: lat,
@@ -30,17 +30,26 @@ export default function CreateOrphanage() {
           <fieldset>
             <legend>Dados</legend>
 
-            <Map 
-              center={[-27.2092052,-49.6401092]} 
+            <Map
+              center={[-27.2092052, -49.6401092]}
               style={{ width: '100%', height: 280 }}
               zoom={15}
               onClick={handleMapClick}
             >
-              <TileLayer 
+              <TileLayer
                 url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
               />
 
-              {position.latitude !== 0 ? <Marker interactive={false} icon={mapIcon} position={[position.latitude,position.longitude]} /> : null}
+              {position.latitude !== 0 && (
+                <Marker
+                  interactive={false}
+                  icon={mapIcon}
+                  position={[
+                    position.latitude,
+                    position.longitude
+                  ]}
+                />
+              )}
 
             </Map>
 
