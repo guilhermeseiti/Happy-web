@@ -19,6 +19,7 @@ interface Orphanage {
   opening_hours: string;
   open_on_weekends: string;
   images: {
+    id: number;
     url: string;
   }[];
 }
@@ -40,7 +41,7 @@ export default function Orphanage() {
   if (!orphanage) {
     return <p> LOADING ...</p>;
   }
-  
+
   return (
     <div id="page-orphanage">
       <Sidebar />
@@ -50,24 +51,13 @@ export default function Orphanage() {
           <img src={orphanage.images[0].url} alt={orphanage.name} />
 
           <div className="images">
-            <button className="active" type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
-            </button>
-            <button type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
-            </button>
+            {orphanage.images.map(image => {
+              return (
+                <button key={image.id} className="active" type="button">
+                  <img src={image.url} alt={orphanage.name} />
+                </button>
+              )
+            })}
           </div>
 
           <div className="orphanage-details-content">
@@ -92,7 +82,7 @@ export default function Orphanage() {
               </Map>
 
               <footer>
-                <a href="">Ver rotas no Google Maps</a>
+                <a target="_blank" rel="noopener noreferrer" href={`https://www.google.com/maps/dir/?api=1&destination=${orphanage.latitude},${orphanage.longitude}`}>Ver rotas no Google Maps</a>
               </footer>
             </div>
 
